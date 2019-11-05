@@ -1,0 +1,25 @@
+{
+  "name": "chrome-extension",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trotto/browser-extension.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/trotto/browser-extension/issues"
+  },
+  "homepage": "https://github.com/trotto/browser-extension#readme",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-compress": "^1.4.3",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-update-json": "^0.2.2",
+    "grunt-zip": "^0.17.1"
+  }
+}

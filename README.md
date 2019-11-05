@@ -1,2 +1,10 @@
 # browser-extension
-A browser extension for providing go links goodness. https://chrome.google.com/webstore/detail/trotto-go-links/nkeoojidblilnkcbbmfhaeebndapehjk
+A browser extension providing go links goodness.
+
+## Build the extension (and watch for changes)
+
+```
+grunt --edition=lite
+```
+
+Use `lite` for now. TODO: Document how to make use of different editions.

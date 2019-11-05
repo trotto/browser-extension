@@ -1,0 +1,12 @@
+{
+  "name": "Trotto Power User",
+  "version": "1.16",
+  "description": "This extension lets you get to Trotto team shortlinks like trot.to/code by simply typing \"go/code\", or \"code/\".",
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "optional_permissions": []
+}
