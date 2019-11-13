@@ -1,4 +1,4 @@
-# browser-extension
+# Trotto Go Links Browser Extension
 A browser extension providing go links goodness.
 
 ## Build the extension (and watch for changes)
