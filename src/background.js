@@ -76,8 +76,23 @@ chrome.runtime.onInstalled.addListener(function(details) {
         // the app. So reload that tab and focus on it so 1) Chrome learns to treat "go/whatever" as a URL and 2) the
         // user can continue the walkthrough experience.
         if (tabs.length === 0) {
-          chrome.tabs.create({
-            url: 'https://go/trotto-init'
+          // then open a new tab next to the current tab
+          chrome.tabs.query({active: true}, function(tabs) {
+            var createArgs = {
+              url: 'https://go/'
+            };
+
+            if (tabs.length === 1) {
+              createArgs.index = tabs[0].index + 1;
+            }
+
+            chrome.tabs.create(createArgs, (newTab) => {
+              chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
+                if (tabId !== newTab.id) return;
+
+                if (changeInfo.status === 'loading') chrome.tabs.remove(newTab.id);
+              });
+            });
           });
         } else {
           chrome.tabs.update(tabs[0].id, {url: 'https://go/trotto-init', active: true});

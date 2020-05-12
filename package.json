@@ -15,8 +15,7 @@
   },
   "homepage": "https://github.com/trotto/browser-extension#readme",
   "devDependencies": {
-    "grunt": "^1.0.1",
-    "grunt-contrib-compress": "^1.4.3",
+    "grunt": "^1.1.0",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-update-json": "^0.2.2",
