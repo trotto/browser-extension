@@ -1,5 +1,6 @@
 .idea/
 dist_*/
+dists/
 node_modules/
-package-lock.json
+yarn-error.log
 *.zip
