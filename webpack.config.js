@@ -12,7 +12,8 @@ module.exports = (env, { edition, distDir, browser, instanceUrl }) => {
     entry: {
       background: `./src/background/entryPoints/${browser}.js`,
       popup: `./src/popup/entryPoints/${browser}.js`,
-      data_injector: './src/data_injector.js'
+      data_injector: './src/data_injector.js',
+      options: './src/options.js'
     },
     output: {
       filename: '[name].js',
