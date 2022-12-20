@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "",
   "description": "",
   "storage": {
@@ -10,14 +10,16 @@
     "48": "icon@48.png",
     "128": "icon@128.png"
   },
-  "browser_action": {
+  "action": {
     "default_icon": "icon@48.png",
     "default_popup": "popup.html"
   },
   "permissions": [
     "storage",
     "webRequest",
-    "webRequestBlocking",
+    "webRequestBlocking"
+  ],
+  "host_permissions": [
     "*://go/*",
     "*://*.trot.to/*"
   ],
