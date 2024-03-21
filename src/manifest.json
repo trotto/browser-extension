@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "",
   "description": "",
   "storage": {
@@ -17,12 +17,16 @@
   "permissions": [
     "storage",
     "webRequest",
-    "webRequestBlocking",
+    "webRequestBlocking"
+  ],
+  "host_permissions": [
     "*://go/*",
     "*://*.trot.to/*"
   ],
   "background": {
-    "scripts": ["background.js"]
+    "scripts": [
+      "background.js"
+    ]
   },
   "options_ui": {
     "page": "options.html",
@@ -30,8 +34,12 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://*.trot.to/*"],
-      "js": ["data_injector.js"],
+      "matches": [
+        "*://*.trot.to/*"
+      ],
+      "js": [
+        "data_injector.js"
+      ],
       "run_at": "document_start"
     }
   ]
