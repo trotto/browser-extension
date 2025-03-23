@@ -15,8 +15,11 @@ export class Api {
       }
     };
 
-    this.webRequest = {
-      onBeforeRequest: browser.webRequest.onBeforeRequest
+    // Replace webRequest with declarativeNetRequest
+    this.declarativeNetRequest = {
+      updateDynamicRules: browser.declarativeNetRequest ? 
+        browser.declarativeNetRequest.updateDynamicRules : 
+        (rules) => console.error("declarativeNetRequest API not available")
     };
 
     this.tabs = {

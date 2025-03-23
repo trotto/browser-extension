@@ -1,11 +1,9 @@
 const browser = require('webextension-polyfill');
 
-
 export class Api {
   constructor() {
     this.runtime = {
       onInstalled: {
-        // note: this doesn't work: `addListener: chrome.runtime.onInstalled.addListener`
         addListener: (callback) => chrome.runtime.onInstalled.addListener(callback)
       }
     };
@@ -19,8 +17,11 @@ export class Api {
       }
     };
 
-    this.webRequest = {
-      onBeforeRequest: browser.webRequest.onBeforeRequest
+    // Replace webRequest with declarativeNetRequest
+    this.declarativeNetRequest = {
+      updateDynamicRules: chrome.declarativeNetRequest ? 
+        chrome.declarativeNetRequest.updateDynamicRules : 
+        (rules) => console.error("declarativeNetRequest API not available")
     };
 
     this.tabs = {

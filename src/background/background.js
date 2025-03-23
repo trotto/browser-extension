@@ -6,22 +6,48 @@ const BLACKLISTED_HOSTNAMES = ['localhost'];
 export class Background {
   constructor(apiImplementation) {
     this.api = apiImplementation;
+    this.ruleIdCounter = 1; // For declarativeNetRequest rule IDs
   }
 
   run() {
     this.registerListeners();
+    this.setupDeclarativeRules();
   }
 
   registerListeners() {
-    this.api.webRequest.onBeforeRequest.addListener(
-      this.rewriteGoRequests.bind(this),
-      {urls: ["<all_urls>"]},  // will match app URLs that the extension requested permission to ("go/" etc.)
-      ['blocking']
-    );
-
     this.api.runtime.onInstalled.addListener(this.handleInstall.bind(this));
-
     this.api.storage.onChanged.addListener(this.handleStorageChange.bind(this));
+  }
+
+  // Set up declarativeNetRequest rules to replace webRequest blocking
+  setupDeclarativeRules() {
+    // We'll use a dynamic rule to handle redirect logic
+    // Note: The exact implementation depends on the specific URLs you need to match
+    // This is a basic implementation that may need refinement
+    const rules = [{
+      id: 1,
+      priority: 1,
+      action: {
+        type: 'redirect',
+        redirect: { regexSubstitution: this.getRegexSubstitution() }
+      },
+      condition: {
+        regexFilter: '^(http|https)://go/.*',
+        resourceTypes: ['main_frame']
+      }
+    }];
+
+    // Update the rules
+    this.api.declarativeNetRequest.updateDynamicRules({
+      removeRuleIds: [1], // Remove existing rule if it exists
+      addRules: rules
+    });
+  }
+
+  // Helper function to generate regex substitution based on instance URL
+  getRegexSubstitution() {
+    const instanceUrl = getInstanceUrl();
+    return `${instanceUrl}\\1?s=crx`;
   }
 
   storeInstanceUrl() {
@@ -30,9 +56,12 @@ export class Background {
     try {
       this.api.storage.managed.get(['TrottoInstanceUrl']).then((result) => {
         store(result.TrottoInstanceUrl || DEFAULT_INSTANCE);
+        // Update rules after instance URL change
+        this.setupDeclarativeRules();
       });
     } catch(e) {
       store(DEFAULT_INSTANCE);
+      this.setupDeclarativeRules();
     }
   }
 
@@ -44,6 +73,8 @@ export class Background {
     });
   };
 
+  // This method is kept for reference but won't be directly used anymore
+  // The logic will be applied via declarativeNetRequest instead
   rewriteGoRequests(details) {
     const [scheme, rest] = details.url.split('://');
     const [bareUrl, query] = rest.split('?');
