@@ -10,11 +10,12 @@ export class Api {
 
     this.storage = {
       onChanged: {
-        addListener: (callback) => chrome.storage.onChanged.addListener(callback)
+      addListener: (callback) => chrome.storage.onChanged.addListener(callback)
       },
       managed: {
-        get: browser.storage.managed.get
-      }
+      get: browser.storage.managed.get
+      },
+      local: chrome.storage.local
     };
 
     // Replace webRequest with declarativeNetRequest

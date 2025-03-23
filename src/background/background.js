@@ -51,7 +51,10 @@ export class Background {
   }
 
   storeInstanceUrl() {
-    const store = (url) => window.localStorage.setItem('trottoInstanceUrl', url);
+    if (!this.api.storage.local) {
+      return;
+    }
+    const store = (url) => this.api.storage.local.set({ trottoInstanceUrl: url });
 
     try {
       this.api.storage.managed.get(['TrottoInstanceUrl']).then((result) => {
