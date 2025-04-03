@@ -1,6 +1,0 @@
-.idea/
-dist_*/
-dists/
-node_modules/
-yarn-error.log
-*.zip
